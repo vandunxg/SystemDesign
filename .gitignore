@@ -7,3 +7,12 @@
 /dataSources/
 /dataSources.local.xml
 .idea
+
+# Fumadocs / Next.js generated files
+node_modules/
+.next/
+.source/
+content/docs/
+public/images/
+next-env.d.ts
+*.tsbuildinfo
