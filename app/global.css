@@ -4,6 +4,12 @@
 
 :root {
   --fd-primary: #0f766e;
+  --sd-ink: #17211f;
+  --sd-muted: #5c6b67;
+  --sd-border: color-mix(in srgb, var(--fd-primary) 16%, currentColor 12%);
+  --sd-surface: color-mix(in srgb, var(--fd-primary) 4%, white);
+  --sd-code-surface: #f3f6f5;
+  --sd-reading-width: 78ch;
 }
 
 html {
@@ -17,4 +23,261 @@ html > body[data-scroll-locked] {
 
 ::selection {
   background: color-mix(in srgb, var(--fd-primary) 22%, transparent);
+}
+
+.sd-doc-header {
+  max-width: var(--sd-reading-width);
+  padding-bottom: 1.5rem;
+}
+
+.sd-doc-header h1 {
+  max-width: 20ch;
+  color: var(--sd-ink);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.sd-doc-header p {
+  max-width: 72ch;
+  color: var(--sd-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.sd-doc-tools {
+  margin-bottom: 2.25rem;
+}
+
+.sd-doc-content {
+  max-width: var(--sd-reading-width);
+  color: var(--sd-ink);
+}
+
+.sd-doc-content :where(p, li) {
+  font-size: 1.02rem;
+  line-height: 1.82;
+}
+
+.sd-doc-content :where(p) {
+  margin-block: 1.05rem;
+}
+
+.sd-doc-content :where(h2) {
+  margin-top: 4.5rem;
+  margin-bottom: 1.25rem;
+  border-left: 3px solid var(--fd-primary);
+  padding-left: 0.9rem;
+  color: var(--sd-ink);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.sd-doc-content :where(h3) {
+  margin-top: 3rem;
+  margin-bottom: 0.85rem;
+  color: color-mix(in srgb, var(--fd-primary) 68%, var(--sd-ink));
+  letter-spacing: -0.015em;
+}
+
+.sd-doc-content :where(h4) {
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+  color: var(--sd-ink);
+}
+
+.sd-doc-content :where(ul, ol) {
+  margin-block: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.sd-doc-content :where(li + li) {
+  margin-top: 0.4rem;
+}
+
+.sd-doc-content :where(a) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.sd-table-wrap {
+  margin-block: 2rem;
+  overflow-x: auto;
+  border: 1px solid var(--sd-border);
+  border-radius: 0.75rem;
+  background: var(--sd-surface);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--fd-primary) 7%, transparent);
+}
+
+.sd-table-wrap:focus-visible {
+  outline: 2px solid var(--fd-primary);
+  outline-offset: 3px;
+}
+
+.sd-table-wrap table {
+  min-width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.sd-table-wrap :where(th, td) {
+  border-bottom: 1px solid var(--sd-border);
+  padding: 0.8rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sd-table-wrap th {
+  background: color-mix(in srgb, var(--fd-primary) 9%, var(--sd-surface));
+  color: var(--sd-ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.sd-table-wrap tr:last-child :where(th, td) {
+  border-bottom: 0;
+}
+
+.sd-table-wrap tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--fd-primary) 3%, transparent);
+}
+
+.sd-callout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  margin-block: 2rem;
+  border: 1px solid color-mix(in srgb, var(--fd-primary) 22%, transparent);
+  border-left: 4px solid var(--fd-primary);
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1rem 1.15rem;
+  background: color-mix(in srgb, var(--fd-primary) 6%, transparent);
+  color: var(--sd-ink);
+  font-style: normal;
+}
+
+.sd-callout::before,
+.sd-callout::after {
+  content: none !important;
+}
+
+.sd-callout p:first-child {
+  margin-top: 0;
+}
+
+.sd-callout p:last-child {
+  margin-bottom: 0;
+}
+
+.sd-callout-mark {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--fd-primary);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.sd-doc-content :where(figure:has(> pre)) {
+  margin-block: 2rem;
+}
+
+.sd-doc-content :where(pre) {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.sd-doc-content :where(:not(pre) > code) {
+  border: 1px solid var(--sd-border);
+  border-radius: 0.35rem;
+  padding: 0.12em 0.35em;
+  background: var(--sd-code-surface);
+  color: color-mix(in srgb, var(--fd-primary) 75%, #17211f);
+  font-size: 0.9em;
+}
+
+.sd-doc-content :where(img) {
+  display: block;
+  max-width: min(100%, 56rem);
+  height: auto;
+  margin: 2.5rem auto 0.85rem;
+  border: 1px solid var(--sd-border);
+  border-radius: 0.7rem;
+  background: white;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--fd-primary) 9%, transparent);
+}
+
+.sd-doc-content :where(p:has(> img)) {
+  margin-block: 2rem;
+}
+
+.sd-divider {
+  margin-block: 3rem;
+  border: 0;
+  border-top: 1px solid var(--sd-border);
+}
+
+.dark {
+  --sd-ink: #e3eeeb;
+  --sd-muted: #9eafaa;
+  --sd-border: color-mix(in srgb, var(--fd-primary) 26%, white 10%);
+  --sd-surface: color-mix(in srgb, var(--fd-primary) 9%, transparent);
+  --sd-code-surface: #172320;
+}
+
+.dark .sd-doc-header h1,
+.dark .sd-doc-content :where(h2, h4),
+.dark .sd-table-wrap th {
+  color: var(--sd-ink);
+}
+
+.dark .sd-doc-content :where(img) {
+  background: #f7faf9;
+}
+
+.dark .sd-doc-content :where(:not(pre) > code) {
+  border-color: color-mix(in srgb, var(--fd-primary) 40%, white 12%);
+  background: #243b36;
+  color: #b9f3e9;
+}
+
+@media (max-width: 768px) {
+  .sd-doc-header {
+    padding-bottom: 1rem;
+  }
+
+  .sd-doc-header h1 {
+    max-width: none;
+    font-size: 2rem;
+  }
+
+  .sd-doc-header p,
+  .sd-doc-content :where(p, li) {
+    font-size: 1rem;
+    line-height: 1.72;
+  }
+
+  .sd-doc-content :where(h2) {
+    margin-top: 3.25rem;
+    padding-left: 0.7rem;
+  }
+
+  .sd-table-wrap {
+    margin-inline: -0.25rem;
+    border-radius: 0.55rem;
+  }
+
+  .sd-table-wrap :where(th, td) {
+    min-width: 9rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .sd-callout {
+    gap: 0.65rem;
+    padding: 0.9rem;
+  }
 }
