@@ -1,0 +1,81 @@
+# Canonical project configuration. Paths are relative to the repository root.
+schema_version: 1
+base_version: 2.0.0
+context_revision: 1
+status: ready
+project:
+  id: systemdesign-vi
+  title: "System Design Interview — bản tiếng Việt"
+  audience: "Developer đọc tài liệu system design bằng tiếng Việt"
+  source_languages: [zh-CN]
+  target_language: vi-VN
+source:
+  kind: repo-docs
+  location: "repo root and Volume2/"
+  edition_or_version: "System Design Interview: An Insider's Guide, Volume 1 and Volume 2"
+  scope_include:
+    - README.md
+    - SUMMARY.md
+    - "CHAPTER *.md"
+    - "Volume2/CHAPTER *.md"
+  scope_exclude:
+    - images/**
+    - translation/**
+    - vi/**
+mapping:
+  - source: "README.md"
+    target: "vi/README.md"
+    mode: mirror
+  - source: "SUMMARY.md"
+    target: "vi/SUMMARY.md"
+    mode: mirror
+  - source: "CHAPTER *.md"
+    target: "vi/CHAPTER *.md"
+    mode: mirror
+  - source: "Volume2/CHAPTER *.md"
+    target: "vi/Volume2/CHAPTER *.md"
+    mode: mirror
+policies:
+  fidelity: faithful
+  code_and_commands: preserve
+  identifiers: preserve
+  numeric_literals: preserve
+  external_links: preserve
+  internal_links: mapped_to_vi_mirror
+  image_assets: preserve_filename_and_destination
+  image_alt_text: translate_prose
+  terminology: natural_technical_vietnamese
+  translator_additions: disallow_in_translation
+execution:
+  mode: parallel
+  unit_policy: whole-file
+  ownership: one-agent-one-file
+  max_workers: "bounded by runtime capacity"
+  review_mode: self-review-per-file-then-batch
+  retry_failed_units_only: true
+  worker_read_set:
+    - translation/RULE.md
+    - assigned source Markdown file
+  worker_write_set:
+    - assigned target Markdown file under vi/
+  coordinator_write_set:
+    - translation/**
+    - batch fixes outside worker ownership when explicitly needed
+  lifecycle:
+    - assign one source-target pair
+    - read the full source
+    - translate the full target end-to-end
+    - reread the target once
+    - finish the worker
+    - run batch validation after all workers complete
+git:
+  commit: false
+  push: false
+  deploy: false
+validation:
+  required:
+    - source files remain unchanged
+    - every assigned source has exactly one target
+    - protected content is preserved
+    - Markdown structure and links remain valid
+    - image references resolve from the vi mirror
